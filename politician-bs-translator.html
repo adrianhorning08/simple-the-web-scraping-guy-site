@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political BS Translator | The Web Scraping Guy</title>
+    <meta name="description" content="Transform political speeches into plain English. Free tool by The Web Scraping Guy that cuts through rhetoric and political jargon to reveal what politicians are really saying.">
+    <meta name="keywords" content="political translator, political speech analyzer, political fact checker, political BS detector, web scraping, AI tools">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Political BS Translator - The Web Scraping Guy">
+    <meta property="og:description" content="Instantly translate political speeches into plain English. Upload any political video or audio and get the real meaning.">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Political BS Translator - The Web Scraping Guy">
+    <meta name="twitter:description" content="AI-powered tool that reveals what politicians are really saying. Upload any speech and get instant translations.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <header class="py-4 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center">
+                <a href="https://thewebscrapingguy.com" class="text-gray-700 hover:text-indigo-600 transition-colors">
+                    ← Back to The Web Scraping Guy
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="max-w-2xl mx-auto text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-600 mb-4">Political BS Translator</h1>
+            <p class="text-gray-600">Cut through the rhetoric and get to what they're really saying.</p>
+        </section>
+
+        <section class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Upload Politicians Soundbite</h2>
+                <p class="text-gray-600 mb-6">Upload any political video or audio (MP4, MP3, WAV) and we'll tell you what they're really saying.</p>
+                
+                <form id="uploadForm" class="space-y-4">
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-500 transition-colors">
+                        <input type="file" id="fileInput" accept="audio/*,video/*" class="hidden" />
+                        <label for="fileInput" class="cursor-pointer">
+                            <div class="text-gray-500">
+                                <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <p class="text-sm">Drag and drop your file here, or click to select</p>
+                                <p class="text-xs text-gray-400 mt-2">Max file size: 25MB</p>
+                            </div>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors">
+                        Translate Speech
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="bg-white rounded-lg shadow-lg p-6 hidden">
+                <h3 class="text-xl font-semibold mb-4">Translation Results</h3>
+                <div id="translationOutput" class="space-y-4">
+                    <!-- Results will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="max-w-4xl mx-auto mt-16">
+            <h2 class="text-2xl font-semibold mb-8 text-center">How It Works</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">Upload</h3>
+                    <p class="text-gray-600">Upload any political speech video or audio file.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">Process</h3>
+                    <p class="text-gray-600">Our AI analyzes the speech and identifies rhetoric patterns.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">Translate</h3>
+                    <p class="text-gray-600">Get a clear, no-BS translation of what was really said.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white mt-16 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>A free tool by <a href="https://thewebscrapingguy.com" class="text-indigo-600 hover:text-indigo-800 font-semibold">The Web Scraping Guy</a></p>
+            <!-- <p class="mt-2">Check out my other <a href="https://thewebscrapingguy.com/tools" class="text-indigo-600 hover:text-indigo-800">free tools</a></p> -->
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a file first!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('https://long-running-server.onrender.com/api/translate-political-bs', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                // Show results
+                const resultsDiv = document.getElementById('results');
+                const outputDiv = document.getElementById('translationOutput');
+                resultsDiv.classList.remove('hidden');
+                
+                outputDiv.innerHTML = data.translations.map(t => `
+                    <div class="border-b pb-4">
+                        <p class="text-gray-600">"${t.originalText}"</p>
+                        <p class="font-semibold mt-2">${t.translation}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                alert('Error processing file: ' + error.message);
+            }
+        });
+
+        // Drag and drop handling
+        const dropZone = document.querySelector('.border-dashed');
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-indigo-500');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-indigo-500');
+                if (eventName === 'drop') {
+                    const fileInput = document.getElementById('fileInput');
+                    fileInput.files = e.dataTransfer.files;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
