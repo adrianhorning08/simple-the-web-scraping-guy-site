@@ -235,8 +235,8 @@ uploadForm.addEventListener('submit', async (e) => {
         
         outputDiv.innerHTML = data.translations.map(t => `
             <div class="border-b pb-4">
-                <p class="text-gray-600">"${t.originalText}"</p>
                 <p class="font-semibold mt-2 text-xl">${t.translation}</p>
+                <p class="text-gray-600">"${t.originalText}"</p>
             </div>
         `).join('');
 
