@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Clutch.co Scraper Tool | Web Scraping Guy</title>
+    <meta name="description" content="Use our free Clutch.co scraper tool to extract valuable data. Powered by the Web Scraping Guy, this tool provides CSV results directly to your email.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Free Clutch.co Scraper Tool</h1>
+            <h2 class="text-xl text-gray-600 dark:text-gray-400 mb-6">From The Web Scraping Guy</h2>
+            
+             <p class="text-gray-700 dark:text-gray-300 mb-6">Scrape the Clutch.co search results with our free tool. Simply enter the URL you want to scrape and your email address to receive the results.</p>
+            
+            <form id="scraperForm" class="space-y-4">
+                <div>
+                    <label for="clutchUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Clutch.co URL to Scrape:</label>
+                    <input type="url" id="clutchUrl" name="clutchUrl" required 
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                           placeholder="https://clutch.co/agencies/email">
+                </div>
+                
+                <div>
+                    <label for="userEmail" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Email Address:</label>
+                    <input type="email" id="userEmail" name="userEmail" required 
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                           placeholder="your@email.com">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out dark:bg-blue-500 dark:hover:bg-blue-600">
+                    Start Scraping
+                </button>
+            </form>
+            
+            <p class="mt-6 text-sm text-gray-600 dark:text-gray-400">Please note: The scraping process may take several minutes. Once completed, we'll send the CSV file to your provided email address.</p>
+            
+            <div class="mt-8">
+                <a href="/" class="inline-block bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-150 ease-in-out">
+                    &larr; Back to The Web Scraping Guy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('scraperForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const clutchUrl = encodeURIComponent(document.getElementById('clutchUrl').value);
+            const userEmail = encodeURIComponent(document.getElementById('userEmail').value);
+            
+            const apiUrl = `https://long-running-server.onrender.com/api/scrape-clutch?url=${clutchUrl}&email=${userEmail}`;
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Scraping request submitted successfully. Please check your email in several minutes for the results.');
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+        });
+    </script>
+</body>
+</html>
