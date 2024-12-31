@@ -1,10 +1,9 @@
-<!-- Design inspired by https://coldemailwizard.io/ -->
 <html
   lang="en"
   class="h-full scroll-smooth bg-white antialiased dark:bg-black text-zinc-900 dark:text-zinc-100"
 >
   <head>
-    <!-- Google tag (gtag.js) NEEDS TO BE ON EVERY PAGE!!!! -->
+    <!-- Google tag (gtag.js) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-3T546XY43S"
@@ -12,7 +11,7 @@
     <meta charset="utf-8" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,16 +20,9 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Adrian | The Web Scraping Guy</title>
-    <meta name="description" content="Adrian | The Web Scraping Guy" />
-    <meta name="keywords" content="web scraping" />
-    <meta name="author" content="Adrian Horning" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16" />
 
+    <!-- Dark mode script -->
     <script>
-      // Tailwind CSS doesn't automatically switch between dark and light modes based on OS settings.
-      // This script adds the correct class to the HTML element based on the user's preference.
       if (
         window.matchMedia &&
         window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -40,55 +32,22 @@
         document.documentElement.classList.remove("dark");
       }
     </script>
+
+    <!-- Font styles -->
     <style>
       body {
         font-family: "Outfit", sans-serif;
       }
     </style>
-
-    <style>
-      .levelsio-by {
-        /* font-family: "Helvetica Neue", sans-serif; */
-        font-family: "Outfit", sans-serif;
-        /* font-family: "Poppins", sans-serif; */
-        right: 0;
-        bottom: 0;
-        position: fixed;
-        z-index: 100;
-        border-top-left-radius: 5px;
-        padding: 10px;
-        border-top: 1px solid #efefef;
-        border-left: 1px solid #efefef;
-        background: #fff;
-        color: #6f6f6f;
-        text-decoration: none;
-      }
-      .levelsio-by:hover {
-        background: #fff;
-        color: rgb(67, 56, 202); /* change to your main brand color */
-      }
-      .levelsio-by img {
-        border-radius: 100%;
-        width: 22px;
-        vertical-align: middle;
-      }
-      .levelsio-by p {
-        margin: 0;
-        vertical-align: middle;
-        display: inline;
-        margin-left: 7px;
-        font-weight: 500;
-        font-size: 14px;
-      }
-    </style>
   </head>
   <body class="h-full">
     <div class="flex flex-col md:flex-row max-w-7xl">
+      <!-- Keep the same user profile section -->
       <div
         class="user flex flex-col md:items-start items-center gap-0 py-2.5 px-5 md:pl-16 pr-5 pt-5"
       >
         <img
-          src="me.png"
+          src="../me.png"
           class="rounded-full w-24 h-24 border-4 border-white"
           alt=""
         />
@@ -120,7 +79,8 @@
               class="social-links-u hover:bg-zinc-500 bg-white w-10 h-10 flex justify-center items-center rounded-full"
               href="https://twitter.com/adrian_horning_"
               target="_blank"
-              ><svg
+            >
+              <svg
                 width="20"
                 height="22"
                 viewBox="0 0 20 19"
@@ -226,182 +186,47 @@
         </div>
       </div>
 
-      <!-- Content -->
-
+      <!-- Modified Content Section -->
       <div
         class="content md:pl-16 md:pt-24 gap-8 flex flex-col p-4 pb-20 w-full md:w-8/12"
       >
-        <div
-          class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
-        >
-          <div class="my-1">
-            <a
-              href="https://scrapecreators.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="flex flex-col md:flex-row md:justify-between">
-                <div class="flex flex-col md:flex-row">
-                  <div
-                    class="bg-gradient-to-tl from-cyan-500 to-sky-600 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col text-center"
-                  >
-                    <span>Scrape Creators</span> <span>🕷️</span>
-                  </div>
-                  <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">Scrape Creators</div>
-                    <div class="mt-2">
-                      Social Media ScrapingAPIs for IG, YouTube, TikTok + more
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                  <div
-                    class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
-                  >
-                    Sign Up
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
+        <!-- Add title section -->
+        <div class="mb-8">
+          <h1 class="text-4xl font-bold mb-2">Free Tools</h1>
+          <p class="text-zinc-600 dark:text-zinc-400">
+            A collection of free tools to help with web scraping and data
+            analysis
+          </p>
         </div>
 
         <div
           class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
         >
           <div class="my-1">
-            <a
-              href="https://adrianhorning.gumroad.com/l/the-ultimate-web-scraping-course"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="/politician-bs-translator">
               <div class="flex flex-col md:flex-row md:justify-between">
                 <div class="flex flex-col md:flex-row">
                   <div
-                    class="bg-gradient-to-tl from-emerald-600 to-teal-500 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col text-center"
+                    class="bg-gradient-to-tl from-purple-600 to-teal-500 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
                   >
-                    <span>My Web Scraping Course</span> <span>📕</span>
+                    <span>Politician BS Translator</span>
+                    <span>🗣️</span>
                   </div>
                   <div class="mt-8 md:pl-4 md:mt-2">
                     <div class="text-xl font-medium">
-                      My Web Scraping Course
+                      Politician BS Translator
                     </div>
-                    <div class="mt-2"></div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                  <div
-                    class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
-                  >
-                    Check it out
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- <div
-          class="tab-content dark:bg-gray-800 bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 rounded-3xl p-2.5"
-        >
-          <div class="my-1">
-            <a
-              href="https://tokfinder.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="flex flex-col md:flex-row md:justify-between">
-                <div class="flex flex-col md:flex-row">
-                  <div
-                    class="bg-gradient-to-tl from-indigo-600 to-rose-500 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
-                  >
-                    <span>Tok Finder</span> <span>🕺</span>
-                  </div>
-                  <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">Tok Finder</div>
                     <div class="mt-2">
-                      1 Million Tiktok Leads. Unlimited exports.
+                      Free tool to understand what politicians are *actually*
+                      saying
                     </div>
                   </div>
                 </div>
-
                 <div class="flex flex-col justify-end">
                   <div
                     class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
                   >
-                    Sign Up
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div> -->
-
-        <div
-          class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
-        >
-          <div class="my-1">
-            <a
-              href="https://discord.gg/qd96DwhwwX"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="flex flex-col md:flex-row md:justify-between">
-                <div class="flex flex-col md:flex-row">
-                  <div
-                    class="bg-gradient-to-tl from-indigo-500 to-indigo-800 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
-                  >
-                    <span>Discord</span> <span>👩‍👦‍👦</span>
-                  </div>
-                  <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">Join My Discord</div>
-                    <div class="mt-2">Get web scraping secrets</div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                  <div
-                    class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
-                  >
-                    Join
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- 
-        <div
-          class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
-        >
-          <div class="my-1">
-            <a
-              href="https://www.nytimes.com/2023/06/23/technology/reddit-moderators-users-api-protest.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="flex flex-col md:flex-row md:justify-between">
-                <div class="flex flex-col md:flex-row">
-                  <img
-                    src="https://static01.nyt.com/images/2023/06/23/multimedia/23REDDIT-1-hqbt/23REDDIT-1-hqbt-facebookJumbo.jpg"
-                    class="w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
-                  />
-                  <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">
-                      NY Times Article on Reddit API
-                    </div>
-                    <div class="mt-2">NY Times Article I was mentioned in</div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                  <div
-                    class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
-                  >
-                    Read
+                    Try it
                   </div>
                 </div>
               </div>
@@ -413,57 +238,19 @@
           class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
         >
           <div class="my-1">
-            <a
-              href="https://www.404media.co/baddiefinder-tinder-bot/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="flex flex-col md:flex-row md:justify-between">
-                <div class="flex flex-col md:flex-row">
-                  <img
-                    src="https://www.404media.co/content/images/size/w1200/2024/03/tinder.png"
-                    class="w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
-                  />
-                  <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">
-                      Article on Baddie Finder
-                    </div>
-                    <div class="mt-2">
-                      I trained an AI to swipe for me if a girl was hot
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                  <div
-                    class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
-                  >
-                    Read
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div> -->
-
-        <div
-          class="tab-content bg-gray-200 hover:shadow-lg transition ease-in-out duration-500 dark:bg-gray-800 rounded-3xl p-2.5"
-        >
-          <div class="my-1">
-            <a href="/free-tools">
+            <a href="/clutch-scraper">
               <div class="flex flex-col md:flex-row md:justify-between">
                 <div class="flex flex-col md:flex-row">
                   <div
-                    class="bg-gradient-to-tl from-blue-600 to-emerald-500 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
+                    class="bg-gradient-to-tl from-emerald-600 to-teal-500 w-full h-48 md:w-44 md:h-24 rounded-xl flex items-center justify-center flex-col"
                   >
-                    <span>Free Tools</span>
-                    <span>🛠️</span>
+                    <span>Clutch Scraper</span>
+                    <span>🔍</span>
                   </div>
                   <div class="mt-8 md:pl-4 md:mt-2">
-                    <div class="text-xl font-medium">Free Tools Collection</div>
+                    <div class="text-xl font-medium">Clutch Scraper</div>
                     <div class="mt-2">
-                      Collection of free tools for web scraping and data
-                      analysis
+                      Free tool to scrape company data from Clutch.co
                     </div>
                   </div>
                 </div>
@@ -471,7 +258,7 @@
                   <div
                     class="rounded-3xl bg-white text-gray-800 py-2 px-4 w-fit text-sm font-semibold mt-4"
                   >
-                    View All
+                    Try it
                   </div>
                 </div>
               </div>
