@@ -71,26 +71,34 @@
         <label for="igHandle" class="block text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-          </path>
           </svg>
           Instagram Handle
         </label>
         <div class="relative mt-1">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 dark:text-gray-400">@</span>
+          </div>
           <input
             type="text"
             id="igHandle"
             name="igHandle"
-            class="block w-full pl-3 pr-10 py-2 border-2 border-purple-200 dark:border-purple-700 dark:bg-gray-700 dark:text-white rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500 transition-colors sm:text-sm"
-            placeholder="@example"
+            class="block w-full pl-8 pr-10 py-2 border-2 border-purple-200 dark:border-purple-700 dark:bg-gray-700 dark:text-white rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500 transition-colors sm:text-sm"
+            placeholder="sydney_sweeney"
             required
           />
         </div>
 
         <button
           type="submit"
-          class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-150 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-150 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 relative"
         >
-          ✨ Generate Magic ✨
+          <span id="buttonText">✨ Generate Magic ✨</span>
+          <div id="loader" class="hidden absolute inset-0 flex items-center justify-center">
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
         </button>
       </form>
 
@@ -111,10 +119,16 @@
       const form = document.getElementById("dmForm");
       const output = document.getElementById("output");
       const dmLine = document.getElementById("dmLine");
+      const buttonText = document.getElementById("buttonText");
+      const loader = document.getElementById("loader");
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const igHandle = document.getElementById("igHandle").value;
+        const igHandle = document.getElementById("igHandle").value.replace('@', ''); // Remove @ if user added it
+
+        // Show loading state
+        buttonText.classList.add("invisible");
+        loader.classList.remove("hidden");
 
         try {
           const response = await fetch(
@@ -127,18 +141,21 @@
             }
           );
 
-          const data = await response.json();
-
           if (response.ok) {
-            dmLine.textContent = data.line;
-            output.classList.remove("hidden");
+            const text = await response.text();
+            dmLine.textContent = text;
           } else {
-            dmLine.textContent = `Error: ${data.error}`;
-            output.classList.remove("hidden");
+            const data = await response.json();
+            dmLine.textContent = data.message || "Something went wrong. Please try again later.";
           }
+          output.classList.remove("hidden");
         } catch (error) {
           dmLine.textContent = "Something went wrong. Please try again later.";
           output.classList.remove("hidden");
+        } finally {
+          // Hide loading state
+          buttonText.classList.remove("invisible");
+          loader.classList.add("hidden");
         }
       });
     </script>
