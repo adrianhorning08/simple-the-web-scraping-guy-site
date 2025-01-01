@@ -106,7 +106,29 @@
         <h2 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
           <span>💝</span> Your Opening Line:
         </h2>
-        <p id="dmLine" class="text-gray-700 dark:text-gray-300 mt-2 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-lg border border-purple-100 dark:border-purple-800"></p>
+        <div class="relative mt-2">
+          <p id="dmLine" class="text-gray-700 dark:text-gray-300 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-lg border border-purple-100 dark:border-purple-800"></p>
+          <button 
+            id="copyButton"
+            class="absolute top-3 right-3 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 bg-white dark:bg-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-150"
+            title="Copy to clipboard"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+              <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Add Post Captions Section -->
+        <div class="mt-6">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
+            <span>📝</span> Recent Post Captions:
+          </h2>
+          <div id="postCaptions" class="mt-2 space-y-3">
+            <!-- Captions will be inserted here -->
+          </div>
+        </div>
       </div>
 
       <div class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6 flex flex-col items-center gap-2">
@@ -121,12 +143,12 @@
       const dmLine = document.getElementById("dmLine");
       const buttonText = document.getElementById("buttonText");
       const loader = document.getElementById("loader");
+      const postCaptions = document.getElementById("postCaptions");
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const igHandle = document.getElementById("igHandle").value.replace('@', ''); // Remove @ if user added it
+        const igHandle = document.getElementById("igHandle").value.replace('@', '');
 
-        // Show loading state
         buttonText.classList.add("invisible");
         loader.classList.remove("hidden");
 
@@ -142,20 +164,79 @@
           );
 
           if (response.ok) {
-            const text = await response.text();
-            dmLine.textContent = text;
+            const data = await response.json();
+            dmLine.textContent = data.message;
+            
+            // Clear previous captions
+            postCaptions.innerHTML = '';
+            
+            // Add each caption
+            if (data.postCaptions && data.postCaptions.length > 0) {
+              data.postCaptions.forEach((caption, index) => {
+                const captionElement = document.createElement('div');
+                captionElement.className = 'p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg border border-purple-100 dark:border-purple-800';
+                
+                const postNumber = document.createElement('div');
+                postNumber.className = 'text-sm text-purple-600 dark:text-purple-400 mb-1';
+                postNumber.textContent = `Post ${index + 1}`;
+                
+                const captionText = document.createElement('div');
+                captionText.className = 'text-gray-700 dark:text-gray-300';
+                captionText.textContent = caption;
+                
+                captionElement.appendChild(postNumber);
+                captionElement.appendChild(captionText);
+                postCaptions.appendChild(captionElement);
+              });
+            } else {
+              const noCaptions = document.createElement('div');
+              noCaptions.className = 'text-gray-500 dark:text-gray-400 text-center p-4';
+              noCaptions.textContent = 'No captions found';
+              postCaptions.appendChild(noCaptions);
+            }
           } else {
             const data = await response.json();
             dmLine.textContent = data.message || "Something went wrong. Please try again later.";
+            postCaptions.innerHTML = '';
           }
           output.classList.remove("hidden");
         } catch (error) {
           dmLine.textContent = "Something went wrong. Please try again later.";
+          postCaptions.innerHTML = '';
           output.classList.remove("hidden");
         } finally {
-          // Hide loading state
           buttonText.classList.remove("invisible");
           loader.classList.add("hidden");
+        }
+      });
+
+      // Add copy button functionality
+      const copyButton = document.getElementById("copyButton");
+      
+      copyButton.addEventListener("click", async () => {
+        const textToCopy = dmLine.textContent;
+        
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          
+          // Visual feedback
+          copyButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          `;
+          
+          // Reset button after 2 seconds
+          setTimeout(() => {
+            copyButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+              </svg>
+            `;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
         }
       });
     </script>
