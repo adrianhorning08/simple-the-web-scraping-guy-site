@@ -170,28 +170,46 @@
             // Clear previous captions
             postCaptions.innerHTML = '';
             
-            // Add each caption
-            if (data.postCaptions && data.postCaptions.length > 0) {
-              data.postCaptions.forEach((caption, index) => {
-                const captionElement = document.createElement('div');
-                captionElement.className = 'p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg border border-purple-100 dark:border-purple-800';
+            // Add each post
+            if (data.posts && data.posts.length > 0) {
+              data.posts.forEach((post, index) => {
+                const postElement = document.createElement('div');
+                postElement.className = 'p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg border border-purple-100 dark:border-purple-800';
+                
+                const postHeader = document.createElement('div');
+                postHeader.className = 'flex justify-between items-center mb-2';
                 
                 const postNumber = document.createElement('div');
-                postNumber.className = 'text-sm text-purple-600 dark:text-purple-400 mb-1';
+                postNumber.className = 'text-sm text-purple-600 dark:text-purple-400';
                 postNumber.textContent = `Post ${index + 1}`;
+                
+                const postLink = document.createElement('a');
+                postLink.href = post.url;
+                postLink.target = '_blank';
+                postLink.className = 'text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-200 flex items-center gap-1 transition-colors';
+                postLink.innerHTML = `
+                  View Post
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                  </svg>
+                `;
+                
+                postHeader.appendChild(postNumber);
+                postHeader.appendChild(postLink);
                 
                 const captionText = document.createElement('div');
                 captionText.className = 'text-gray-700 dark:text-gray-300';
-                captionText.textContent = caption;
+                captionText.textContent = post.caption;
                 
-                captionElement.appendChild(postNumber);
-                captionElement.appendChild(captionText);
-                postCaptions.appendChild(captionElement);
+                postElement.appendChild(postHeader);
+                postElement.appendChild(captionText);
+                postCaptions.appendChild(postElement);
               });
             } else {
               const noCaptions = document.createElement('div');
               noCaptions.className = 'text-gray-500 dark:text-gray-400 text-center p-4';
-              noCaptions.textContent = 'No captions found';
+              noCaptions.textContent = 'No posts found';
               postCaptions.appendChild(noCaptions);
             }
           } else {
